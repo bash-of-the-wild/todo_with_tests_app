@@ -1,29 +1,31 @@
 class Task < ApplicationRecord
-    def toggle_complete!
-      update(complete: !complete)
-    end
+  belongs_to :list
 
-    def toggle_favorite!
-      update(favorite: !favorite)
-    end
+  def toggle_complete!
+    update(complete: !complete)
+  end
 
-    def overdue?
-      return Time.now > deadline
-    end
+  def toggle_favorite!
+    update(favorite: !favorite)
+  end
 
-    def increment_priority!
-      if priority < 10
-        update(priority: priority + 1)
-      end
-    end
+  def overdue?
+    return Time.now > deadline
+  end
 
-    def decrement_priority!
-      if priority > 1 
-        update(priority: priority - 1)
-      end
+  def increment_priority!
+    if priority < 10
+      update(priority: priority + 1)
     end
+  end
 
-    def snooze_hour!
-      update(deadline: deadline + 1.hour)
+  def decrement_priority!
+    if priority > 1 
+      update(priority: priority - 1)
     end
+  end
+
+  def snooze_hour!
+    update(deadline: deadline + 1.hour)
+  end
 end
